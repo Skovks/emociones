@@ -238,7 +238,7 @@ def main():
                 if audio_file is not None:
                     fig = plt.figure(figsize=(10, 2))
                     fig.set_facecolor('#d1d1e0')
-                    plt.title("Wave-form")
+                    plt.title("Wave-form")# and calculate it's shape:
                     librosa.display.waveplot(wav, sr=44100)
                     plt.gca().axes.get_yaxis().set_visible(False)
                     plt.gca().axes.get_xaxis().set_visible(False)
@@ -252,8 +252,8 @@ def main():
                     pass
 
         if model_type == "mfccs":
-            em3 = st.sidebar.checkbox("3 emotions", True)
-            em6 = st.sidebar.checkbox("6 emotions", True)
+            em3 = st.sidebar.checkbox("3 emotions")
+            em6 = st.sidebar.checkbox("6 emotions")
             em7 = st.sidebar.checkbox("7 emotions", True)
             gender = st.sidebar.checkbox("gender", True)
 
@@ -339,7 +339,6 @@ def main():
                             neg = pred[0] + pred[1] + pred[4] * .5
                             data3 = np.array([pos, neu, neg])
                             txt = "MFCCs\n" + get_title(data3, CAT3)
-                            print(CAT3[data3.argmax()]) #Imprime emocion en pantalla
                             fig = plt.figure(figsize=(5, 5))
                             COLORS = color_dict(COLOR_DICT)
                             plot_colored_polar(fig, predictions=data3, categories=CAT3,
@@ -365,7 +364,8 @@ def main():
                             mfccs_ = mfccs_.T.reshape(1, *mfccs_.T.shape)
                             pred_ = model_.predict(mfccs_)[0]
                             txt = "MFCCs\n" + get_title(pred_, CAT7)
-                            print(CAT7[pred_.argmax()]) #Imprime emocion en pantalla
+                            #print(CAT7[pred_.argmax()]) #Imprime emocion en pantalla
+                            print(pred_.argmax())
                             fig3 = plt.figure(figsize=(5, 5))
                             COLORS = color_dict(COLOR_DICT)
                             plot_colored_polar(fig3, predictions=pred_, categories=CAT7,
